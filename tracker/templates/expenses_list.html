@@ -1,0 +1,43 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}Widok wydatków{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="container">
+    <form method="GET" style="margin-bottom: 20px;">
+    <label for="category">Filtruj po kategorii:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option value="all">Wszystkie</option>
+
+        {% for category in categories %}
+            <option value="{{ category.id }}"
+                {% if selected_category == category.id|stringformat:"s" %}
+                    selected
+                {% endif %}
+            >
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+{% for expense in expenses_list %}
+    <div class="expense-container">
+        {{ expense.name }} — {{ expense.amount }} zł
+        <div class="category-label">{{ expense.category_of_expense }}</div>
+
+        <a href="{% url 'delete_expense' expense.id %}"
+           onclick="return confirm('Czy na pewno chcesz usunąć ten wydatek?')">
+            Usuń
+        </a>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+

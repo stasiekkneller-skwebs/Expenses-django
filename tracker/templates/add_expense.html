@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Widok wydatków{% endblock %}
+{% block content %}
+    <h1>Dodaj wydatek</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Zapisz</button>
+    </form>
+
+{% endblock %}
